@@ -1,0 +1,31 @@
+<p>update-etudiant works!</p>
+<p>update-etudiant works!</p>
+<label id="idsupp">Entrer l'id de l'étudiant à Modifier:</label>
+<input type="text"  [(ngModel)]="idInput" />
+<button type="submit" (click)="trouver()">Trouver l'étudiant</button>
+<form #form="ngForm">
+    <label id="nomEt">Nom:</label>
+    <input [value]="Etudiant.nomEt" name="nomEt"  [(ngModel)]="Etudiant.nomEt" #nomEt="ngModel">
+
+    <label id="prenomEt">Prenom:</label>
+    <input [value]="Etudiant.prenomEt" name="prenomEt" [(ngModel)]="Etudiant.prenomEt" #prenomEttudiant="ngModel">
+
+    <label id="cin">CIN:</label>
+    <input [value]="Etudiant.cin" [(ngModel)]="Etudiant.cin" name="cin" #cinEtudiant="ngModel">
+    
+    <label id="email">Email:</label>
+    <input [value]="Etudiant.email"[(ngModel)]="Etudiant.email"  name="email" [(ngModel)]="Etudiant.email" #emailEtudiant="ngModel">
+
+
+    <label id="date_naissance">Date de naissance:</label>
+ <input [value]="Etudiant.date_naissance"name="date_naissance" [(ngModel)]="Etudiant.date_naissance" #date_naissanceEtudiant="ngModel">
+
+    <label id="mdp">Mot De passe:</label>
+    <input type="mdp"[value]="Etudiant.mdp" [(ngModel)]="Etudiant.mdp" required name="mdp" #mdpEtudiant="ngModel">
+
+    <label id="ecole">Ecole:</label>
+    <input [value]="Etudiant.ecole" [(ngModel)]="Etudiant.ecole"name="ecole" #ecoleEtudiant="ngModel">  
+
+    <button type="submit"  (click)="onSubmit(form.value)" (click)="show(form.value)">Update</button>
+  </form>
+   

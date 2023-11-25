@@ -1,0 +1,67 @@
+<p>all-etudiant works!</p>
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+    <div class="d-flex w-100"><router-outlet></router-outlet></div></mat-card-content>
+    <mat-card-content class="p-24">
+      <div class="d-flex w-100">
+        <!-- les bouttons du crud -->
+        <button mat-flat-button color="accent" class="w-10" routerLink="/add-etudiant">Ajouter un Etudiant</button>
+        <button mat-flat-button color="primary" class="w-10" routerLink="/update-etudiant">Modifier un Etudiant</button>
+        <button mat-flat-button color="warn" class="w-10" routerLink="/delete-etudiant">Supprimer un Etudiant</button>
+      </div>
+    </mat-card-content>
+      <mat-card-content class="p-24">
+        <div class="d-flex w-100">
+          <input type="text" placeholder="Search" [(ngModel)]="search">
+        </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card class="cardWithShadow">
+    <mat-card-content class="p-20">
+      <div class="d-flex w-10">
+        <!-- Etudiant Table -->
+        <div class="table-container">
+          <table class="table">
+            <thead>
+            <tr>
+              <!-- Titles -->
+              <th class="table-header">Id Etudiant</th>
+              <th class="table-header">Nom Etudiant</th>
+              <th class="table-header">Prenom Etudiant</th>
+              <th class="table-header">Cin</th>
+              <th class="table-header">Ecole</th>
+              <th class="table-header">Email</th>
+              <th class="table-header">Date de naissance</th>
+              <th class="table-header">Mot de passe</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let Etudiant of Etudiants">
+              <!-- Filter based on search -->
+              <ng-container *ngIf="Etudiant.nomEt === search || search === ''">
+                <!-- Etudiant Details -->
+                <td class="table-cell">{{ Etudiant.idEtudiant}}</td>
+                <td class="table-cell">{{ Etudiant.nomEt }}</td>
+                <td class="table-cell">{{ Etudiant.prenomEt }}</td>
+                <td class="table-cell">{{ Etudiant.cin }}</td>
+                <td class="table-cell">{{ Etudiant.ecole }}</td>
+                <td class="table-cell">{{ Etudiant.email }}</td>
+                <td class="table-cell">{{ Etudiant.date_naissance}}</td>
+                <td class="table-cell">{{ Etudiant.mdp}}</td>
+  
+               
+                
+              </ng-container>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div></div>
+ 
+  
+  

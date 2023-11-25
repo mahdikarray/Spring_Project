@@ -1,8 +1,18 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@angular/flex-layout@12.0.0/bundles/flex-layout.umd.min.js">
+
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+    <div fxLayout="column" fxLayoutAlign="center center">
+      Ajouter un nouveau Foyer
+    </div>
+  </mat-card-content>
+</mat-card>
+
 <form #form="ngForm">
   <mat-card class="cardWithShadow">
     <mat-card-content class="p-24">
+      <div fxLayout="column" fxLayoutAlign="center center">
 
-      <div class="form-group w-100">
         <mat-form-field appearance="outline" class="w-100">
           <label>Name</label>
           <input matInput type="text" name="nomFoyer" [(ngModel)]="foyer.nomFoyer" required minlength="3">
@@ -11,9 +21,7 @@
             <span *ngIf="form.controls['nomFoyer'].hasError('minlength')">Minimum length is 3 characters</span>
           </mat-error>
         </mat-form-field>
-      </div>
 
-      <div class="form-group w-100">
         <mat-form-field appearance="outline" class="w-100">
           <label>Capacite Foyer</label>
           <input matInput type="text" name="capaciteFoyer" [(ngModel)]="foyer.capaciteFoyer" required pattern="[0-9]*">
@@ -22,9 +30,7 @@
             <span *ngIf="form.controls['capaciteFoyer'].hasError('pattern')">Please enter a valid number</span>
           </mat-error>
         </mat-form-field>
-      </div>
 
-      <div class="form-group w-100">
         <mat-form-field appearance="outline" class="w-100">
           <label>Universite</label>
           <select matNativeControl name="universite" [(ngModel)]="foyer.universite" required>
@@ -34,25 +40,26 @@
             <span *ngIf="form.controls['universite'].hasError('required')">Required</span>
           </mat-error>
         </mat-form-field>
+
+        <div *ngFor="let selectedBloc of selectedBlocs; let i = index" fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-form-field appearance="outline" class="w-80">
+            <label>Bloc</label>
+            <select matNativeControl name="bloc" [(ngModel)]="selectedBlocs[i]" required multiple>
+              <option *ngFor="let b of blocs" [ngValue]="b">{{ b.nomBloc }}</option>
+            </select>
+            <mat-error *ngIf="form.controls['bloc'].invalid && form.controls['bloc'].touched" class="red-text">
+              <span *ngIf="form.controls['bloc'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+          <button mat-flat-button color="accent" class="w-18" type="button" (click)="removeDropdown(i)">-</button>
+        </div>
+
+        <button mat-flat-button color="accent" class="w-100" type="button" (click)="addDropdown()">Add Bloc</button>
+
+        <button mat-flat-button color="accent" class="w-100" type="submit" value="Add Foyer" [disabled]="!form.valid" (click)="saveUser()">Add </button>
+
       </div>
-
-      <label>Bloc</label>
-      <div *ngFor="let selectedBloc of selectedBlocs; let i = index" class="form-group w-100">
-        <mat-form-field appearance="outline" class="w-100">
-          <select matNativeControl name="bloc" [(ngModel)]="selectedBlocs[i]" required multiple>
-            <option *ngFor="let b of blocs" [ngValue]="b">{{ b.nomBloc }}</option>
-          </select>
-          <mat-error *ngIf="form.controls['bloc'].invalid && form.controls['bloc'].touched" class="red-text">
-            <span *ngIf="form.controls['bloc'].hasError('required')">Required</span>
-          </mat-error>
-        </mat-form-field>
-        <button mat-flat-button color="accent" class="w-100" type="button" (click)="removeDropdown(i)">-</button>
-      </div>
-
-      <button mat-flat-button color="accent" class="w-100" type="button" (click)="addDropdown()">Add</button>
-
-      <button mat-flat-button color="accent" class="w-100" type="submit" [disabled]="!form.valid" (click)="update(form.value)">Update Foyer</button>
-
     </mat-card-content>
   </mat-card>
 </form>
+

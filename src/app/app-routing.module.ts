@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
-import {FoyerDeleteComponent} from "./foyer-delete/foyer-delete.component";
-import {FoyerUpdateComponent} from "./foyer-update/foyer-update.component";
-import {FoyerAddComponent} from "./foyer-add/foyer-add.component";
-import {FoyerListComponent} from "./foyer-list/foyer-list.component";
-import {BlocListComponent} from "./bloc-list/bloc-list.component";
-
+import {FoyerDeleteComponent} from "./gestion foyer/foyer-delete/foyer-delete.component";
+import {FoyerUpdateComponent} from "./gestion foyer/foyer-update/foyer-update.component";
+import {FoyerAddComponent} from "./gestion foyer/foyer-add/foyer-add.component";
+import {FoyerListComponent} from "./gestion foyer/foyer-list/foyer-list.component";
+import { AllEtudiantComponent } from './gestion etudiant/all-etudiant/all-etudiant.component';
+import { AddEtudiantComponent } from './gestion etudiant/add-etudiant/add-etudiant.component';
+import { DeleteEtudiantComponent } from './gestion etudiant/delete-etudiant/delete-etudiant.component';
+import { UpdateEtudiantComponent } from './gestion etudiant/update-etudiant/update-etudiant.component';
 const routes: Routes = [
   {
     path: '',
@@ -18,12 +20,15 @@ const routes: Routes = [
         redirectTo: '/Foyer',
         pathMatch: 'full',
       },
-      { path: '', redirectTo: '/Foyer', pathMatch: 'full' },
-      {path:'c1',component:BlocListComponent},
       {path:'Foyer',component:FoyerListComponent},
       {path:'Foyer/add',component:FoyerAddComponent},
       {path:'Foyer/:id',component:FoyerUpdateComponent},
-      { path: 'Foyer/delete/:id', component: FoyerDeleteComponent }
+      { path: 'Foyer/delete/:id', component: FoyerDeleteComponent },
+      {path:'etudiant',component:AllEtudiantComponent},
+      {path:"update-etudiant", component:UpdateEtudiantComponent},
+      {path:"add-etudiant", component:AddEtudiantComponent},
+      {path:"delete-etudiant", component:DeleteEtudiantComponent}
+
     ],
   },
 ];

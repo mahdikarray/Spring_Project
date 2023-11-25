@@ -10,9 +10,9 @@ export const navItems: NavItem[] = [
     route: '/Foyer',
   },
   {
-    displayName: 'C1',
+    displayName: 'Etudiant',
     iconName: 'rosette',
-    route: '',
+    route: '/etudiant',
   },
   {
     displayName: 'Chips',

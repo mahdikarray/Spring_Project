@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FoyerService} from "../Service/foyer.service";
-import {Foyer} from "../model/Foyer";
-import {BlocService} from "../Service/bloc.service";
-import {UniversiteService} from "../Service/universite.service";
-import {Universite} from "../model/Universite";
-import {Bloc} from "../model/Bloc";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Foyer} from "../../models/Foyer";
+import {Universite} from "../../models/Universite";
+import {Bloc} from "../../models/Bloc";
+import {FoyerService} from "../../services/foyer.service";
+import {UniversiteService} from "../../services/universite.service";
+import {BlocService} from "../../services/bloc.service";
 
 @Component({
   selector: 'app-foyer-add',

@@ -1,13 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
-import {FoyerService} from "../Service/foyer.service";
+
 import {ActivatedRoute, Router} from "@angular/router";
-import {Foyer} from "../model/Foyer";
-import {Bloc} from "../model/Bloc";
-import {Universite} from "../model/Universite";
-import {UniversiteService} from "../Service/universite.service";
-import {BlocService} from "../Service/bloc.service";
+
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Foyer} from "../../models/Foyer";
+import {Universite} from "../../models/Universite";
+import {Bloc} from "../../models/Bloc";
+import {FoyerService} from "../../services/foyer.service";
+import {UniversiteService} from "../../services/universite.service";
+import {BlocService} from "../../services/bloc.service";
 
 @Component({
   selector: 'app-foyer-update',

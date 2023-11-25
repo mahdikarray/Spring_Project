@@ -23,12 +23,15 @@ import { SidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { HeaderComponent } from './layouts/full/header/header.component';
 import { BrandingComponent } from './layouts/full/sidebar/branding.component';
 import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
-import {FoyerDeleteComponent} from "./foyer-delete/foyer-delete.component";
-import {FoyerUpdateComponent} from "./foyer-update/foyer-update.component";
-import {FoyerAddComponent} from "./foyer-add/foyer-add.component";
-import {FoyerListComponent} from "./foyer-list/foyer-list.component";
-import {BlocListComponent} from "./bloc-list/bloc-list.component";
+import {FoyerDeleteComponent} from "./gestion foyer/foyer-delete/foyer-delete.component";
+import {FoyerUpdateComponent} from "./gestion foyer/foyer-update/foyer-update.component";
+import {FoyerAddComponent} from "./gestion foyer/foyer-add/foyer-add.component";
+import {FoyerListComponent} from "./gestion foyer/foyer-list/foyer-list.component";
 
+import { AllEtudiantComponent } from './gestion etudiant/all-etudiant/all-etudiant.component';
+import { AddEtudiantComponent } from './gestion etudiant/add-etudiant/add-etudiant.component';
+import { DeleteEtudiantComponent } from './gestion etudiant/delete-etudiant/delete-etudiant.component';
+import { UpdateEtudiantComponent } from './gestion etudiant/update-etudiant/update-etudiant.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,11 +41,15 @@ import {BlocListComponent} from "./bloc-list/bloc-list.component";
     HeaderComponent,
     BrandingComponent,
     AppNavItemComponent,
-    BlocListComponent,
     FoyerListComponent,
     FoyerAddComponent,
     FoyerUpdateComponent,
-    FoyerDeleteComponent
+    FoyerDeleteComponent,
+    AllEtudiantComponent,
+    AddEtudiantComponent,
+    DeleteEtudiantComponent,
+    UpdateEtudiantComponent
+
   ],
   imports: [
     BrowserModule,
