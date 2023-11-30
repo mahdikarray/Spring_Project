@@ -20,6 +20,7 @@ export class FoyerListComponent implements OnInit {
   ngOnInit(): void {
     this.foyerservice.getFoyer().subscribe((d) => {
       this.foyers = d;
+      console.log(this.foyers);
     });
   }
 
