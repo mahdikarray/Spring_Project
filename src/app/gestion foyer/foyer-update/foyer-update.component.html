@@ -51,7 +51,10 @@
 
       <button mat-flat-button color="accent" class="w-100" type="button" (click)="addDropdown()">Add</button>
 
-      <button mat-flat-button color="accent" class="w-100" type="submit" [disabled]="!form.valid" (click)="update(form.value)">Update Foyer</button>
+      <button mat-flat-button color="accent" class="w-100" type="submit" [disabled]="isUpdateDisabled()" (click)="update(form.value)">Update Foyer</button>
+      <mat-error *ngIf="isUpdateDisabled()" class="error-message">
+        foyer saturée
+      </mat-error>
 
     </mat-card-content>
   </mat-card>

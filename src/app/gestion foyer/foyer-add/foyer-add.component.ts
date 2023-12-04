@@ -18,28 +18,7 @@ export class FoyerAddComponent implements OnInit {
   universites: Universite[] = [];
   blocs: Bloc[] = [];
   selectedBlocs: Bloc[][] = [[]]; // Initialize with an empty dropdown
-  selectedFile: File | null = null;
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
-  }
-
-  uploadImage(idFoyer: any) {
-    if (this.selectedFile) {
-      console.log("ENTER");
-      let formData = new FormData();
-      formData.append('file', this.selectedFile, this.selectedFile.name);
-      formData.forEach((value, key) => {
-        console.log(key, value);
-      });
-      this.foyerService.uploadImg(formData, idFoyer).subscribe(
-        (data) => {
-          console.log(data);
-        }
-      )
-    }
-  }
 
   constructor(
     private foyerService: FoyerService,
@@ -72,7 +51,6 @@ export class FoyerAddComponent implements OnInit {
       ).subscribe(
         (response) => {
           this.showSnackBar('Added successfully and associated with university and bloc');
-          this.uploadImage(response.idFoyer);
           this.router.navigate(['/Foyer']);
         },
         (error) => {

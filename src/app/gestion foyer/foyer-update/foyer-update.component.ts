@@ -22,6 +22,14 @@ export class FoyerUpdateComponent implements OnInit {
   universites: Universite[] = [];
   blocs: Bloc[] = [];
   selectedBlocs: Bloc[][] = [[]];
+  isUpdateDisabled(): boolean {
+    // Calculate the total number of blocks selected across all dropdowns
+    const totalBlocks = this.selectedBlocs.reduce((total, blocs) => total + blocs.length, 0);
+
+    // Check if the total blocks exceed the capacity of the foyer
+    return totalBlocks > this.foyer.capaciteFoyer;
+  }
+
 
   constructor(
     private s: FoyerService,
@@ -43,8 +51,6 @@ export class FoyerUpdateComponent implements OnInit {
         (data) => {
           this.foyer = data;
 
-          // Initialize selectedBlocs with an array containing an empty array
-          this.selectedBlocs = [this.foyer.bloc || []];
         }
       );
     }
@@ -76,6 +82,7 @@ export class FoyerUpdateComponent implements OnInit {
         () => {
           this.showSnackBar('Modification effectuée');
           this.updateUser.emit(updateUser);
+          window.location.reload(); // Reload the page
           this.router.navigate(['/Foyer']);
         },
         (error) => {

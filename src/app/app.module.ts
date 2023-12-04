@@ -32,6 +32,7 @@ import { AllEtudiantComponent } from './gestion etudiant/all-etudiant/all-etudia
 import { AddEtudiantComponent } from './gestion etudiant/add-etudiant/add-etudiant.component';
 import { DeleteEtudiantComponent } from './gestion etudiant/delete-etudiant/delete-etudiant.component';
 import { UpdateEtudiantComponent } from './gestion etudiant/update-etudiant/update-etudiant.component';
+import {MatDialog} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import { UpdateEtudiantComponent } from './gestion etudiant/update-etudiant/upda
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    TablerIconsModule.pick(TablerIcons)
+    TablerIconsModule.pick(TablerIcons),
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

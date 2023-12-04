@@ -3,6 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Foyer} from "../../models/Foyer";
 import {FoyerService} from "../../services/foyer.service";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-foyer-list',
@@ -10,6 +12,44 @@ import {FoyerService} from "../../services/foyer.service";
   styleUrls: ['./foyer-list.component.css']
 })
 export class FoyerListComponent implements OnInit {
+  isFoyerSaturated(foyer: Foyer): boolean {
+    return foyer.bloc.length >= foyer.capaciteFoyer;
+  }
+  downloadPDF(): void {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text('Foyer List', 10, 10);
+
+    const columns = [
+      { header: 'Nom Foyer', dataKey: 'nomFoyer' },
+      { header: 'Capacite Foyer', dataKey: 'capaciteFoyer' },
+      { header: 'Universite', dataKey: 'nomUniversite' },
+      { header: 'Blocs', dataKey: 'blocs' },
+      { header: 'Est sature', dataKey: 'isSaturated' }
+    ];
+
+    const data = this.foyers.map((foyer) => ({
+      nomFoyer: foyer.nomFoyer,
+      capaciteFoyer: foyer.capaciteFoyer,
+      nomUniversite: foyer.universite.nomUniversite,
+      blocs: foyer.bloc.map(bloc => bloc.nomBloc).join(', '),
+      isSaturated: this.isFoyerSaturated(foyer) ? 'Yes' : 'No'
+    }));
+
+    // Use type assertion here
+    (doc as any).autoTable({
+      columns: columns,
+      body: data.map(item => columns.map(column => {
+        // @ts-ignore
+        return item[column.dataKey];
+      })),
+      startY: 20
+    });
+
+    doc.save('foyer-list.pdf');
+  }
+
   foyers: Foyer[] = [];
   search = '';
   usertoSelected!: Foyer;

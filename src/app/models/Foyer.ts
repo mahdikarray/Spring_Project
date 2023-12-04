@@ -9,5 +9,6 @@ nomFoyer!:string;
 capaciteFoyer!:number;
 bloc!: Bloc[];
 universite !:Universite;
+  isHidden!: boolean;
   image?: Image | null;
 }
