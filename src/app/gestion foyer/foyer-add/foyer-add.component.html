@@ -41,7 +41,7 @@
           </mat-error>
         </mat-form-field>
 
-        <div *ngFor="let selectedBloc of selectedBlocs; let i = index" fxLayout="row" fxLayoutAlign="space-between center">
+        <div *ngFor="let selectedBloc of selectedBlocs; let i = index" class="form-group w-100">
           <mat-form-field appearance="outline" class="w-80">
             <label>Bloc</label>
             <select matNativeControl name="bloc" [(ngModel)]="selectedBlocs[i]" required multiple>
@@ -56,8 +56,10 @@
 
         <button mat-flat-button color="accent" class="w-100" type="button" (click)="addDropdown()">Add Bloc</button>
 
-        <button mat-flat-button color="accent" class="w-100" type="submit" value="Add Foyer" [disabled]="!form.valid" (click)="saveUser()">Add </button>
-
+        <button mat-flat-button color="accent" class="w-100" type="submit" value="Add Foyer" [disabled]="isAddDisabled()||!form.valid" (click)="saveUser()">Add </button>
+        <mat-error *ngIf="isAddDisabled()" class="error-message">
+          foyer saturée
+        </mat-error>
       </div>
     </mat-card-content>
   </mat-card>

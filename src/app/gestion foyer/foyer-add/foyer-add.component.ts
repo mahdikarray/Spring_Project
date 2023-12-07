@@ -84,7 +84,7 @@ export class FoyerAddComponent implements OnInit {
   }
 
   addDropdown(): void {
-    this.selectedBlocs.push([...this.selectedBlocs[0]]); // Clone the first dropdown
+    this.selectedBlocs.push([]); // Create a new empty array
   }
 
   removeDropdown(index: number): void {
@@ -99,5 +99,10 @@ export class FoyerAddComponent implements OnInit {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
     });
+  }
+  isAddDisabled(): boolean {
+    const totalBlocks = this.selectedBlocs.reduce((total, blocs) => total + blocs.length, 0);
+
+    return totalBlocks > this.foyer.capaciteFoyer;
   }
 }

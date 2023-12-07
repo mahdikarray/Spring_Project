@@ -7,10 +7,10 @@ import { Etudiant } from '../models/etudiant';
 })
 export class EtudiantService {
 
- 
-  
-  baseUrl = "http://localhost:8088/Etudiants/addEtudiant";
-  Url="http://localhost:8088/Etudiants/"
+
+
+  baseUrl = "http://localhost:8181/Etudiants/addEtudiant";
+  Url="http://localhost:8181/Etudiants/"
   constructor(private http:HttpClient) { }
 
 
@@ -23,7 +23,7 @@ export class EtudiantService {
     const url = `${this. Url}getbyid/${id}`;
     return this.http.get(url);
       }
-      
+
 
       updateEtudiant(updatedEtudiant:Etudiant,id: number): Observable<Etudiant> {
         const url = `${this.Url}updateEtudiant/${id}`;
@@ -39,15 +39,15 @@ export class EtudiantService {
             const url = `${this.Url}getEtudiants`;
             return this.http.get<Etudiant[]>(url);
           }
-      }  
-     
+      }
 
 
 
- 
- 
-  
- 
+
+
+
+
+
 
 
 

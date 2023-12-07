@@ -23,10 +23,8 @@ export class FoyerUpdateComponent implements OnInit {
   blocs: Bloc[] = [];
   selectedBlocs: Bloc[][] = [[]];
   isUpdateDisabled(): boolean {
-    // Calculate the total number of blocks selected across all dropdowns
     const totalBlocks = this.selectedBlocs.reduce((total, blocs) => total + blocs.length, 0);
 
-    // Check if the total blocks exceed the capacity of the foyer
     return totalBlocks > this.foyer.capaciteFoyer;
   }
 
@@ -69,10 +67,9 @@ export class FoyerUpdateComponent implements OnInit {
     snackBarRef.onAction().subscribe(() => {
       const updatedFoyer = {
         ...this.foyer,
-        bloc: this.selectedBlocs[0], // Assuming you are only using the first dropdown for bloc selection
+        bloc: this.selectedBlocs[0],
       };
 
-      // Use this.foy.idFoyer instead of this.ac.snapshot.params['id']
       this.s.updateFoyerWithAssociations(
         updateUser,
         this.foyer.idFoyer,
@@ -82,7 +79,8 @@ export class FoyerUpdateComponent implements OnInit {
         () => {
           this.showSnackBar('Modification effectuée');
           this.updateUser.emit(updateUser);
-          window.location.reload(); // Reload the page
+         // window.location.reload(); // Reload the page
+         // window.location.reload();
           this.router.navigate(['/Foyer']);
         },
         (error) => {
@@ -114,7 +112,11 @@ export class FoyerUpdateComponent implements OnInit {
   }
 
   removeDropdown(index: number): void {
-    this.selectedBlocs.splice(index, 1);
+    if (this.selectedBlocs.length > 1) {
+      this.selectedBlocs.splice(index, 1);
+    } else {
+      this.showSnackBar('At least one Bloc must be chosen.');
+    }
   }
 
   private showSnackBar(message: string): void {

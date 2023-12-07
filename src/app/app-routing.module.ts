@@ -20,10 +20,13 @@ const routes: Routes = [
         redirectTo: '/Foyer',
         pathMatch: 'full',
       },
-      {path:'Foyer',component:FoyerListComponent},
-      {path:'Foyer/add',component:FoyerAddComponent},
-      {path:'Foyer/:id',component:FoyerUpdateComponent},
-      { path: 'Foyer/delete/:id', component: FoyerDeleteComponent },
+      {
+        path: 'Foyer',
+        loadChildren: () =>
+          import('../app/gestion foyer/foyer/foyer.module').then(
+            (m) => m.FoyerModule
+          ),
+      },
       {path:'etudiant',component:AllEtudiantComponent},
       {path:"update-etudiant", component:UpdateEtudiantComponent},
       {path:"add-etudiant", component:AddEtudiantComponent},

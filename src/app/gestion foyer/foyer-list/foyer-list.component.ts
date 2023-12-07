@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Foyer} from "../../models/Foyer";
 import {FoyerService} from "../../services/foyer.service";
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-foyer-list',
@@ -12,9 +13,16 @@ import 'jspdf-autotable';
   styleUrls: ['./foyer-list.component.css']
 })
 export class FoyerListComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  pageSize = 2; // page size
+  pageIndex = 0;
+  length = 0; // number of items
+  displayedFoyers: Foyer[] = [];
+
   isFoyerSaturated(foyer: Foyer): boolean {
     return foyer.bloc.length >= foyer.capaciteFoyer;
   }
+
   downloadPDF(): void {
     const doc = new jsPDF();
 
@@ -26,29 +34,31 @@ export class FoyerListComponent implements OnInit {
       { header: 'Capacite Foyer', dataKey: 'capaciteFoyer' },
       { header: 'Universite', dataKey: 'nomUniversite' },
       { header: 'Blocs', dataKey: 'blocs' },
-      { header: 'Est sature', dataKey: 'isSaturated' }
+      { header: 'Est sature', dataKey: 'isSaturated' },
     ];
 
     const data = this.foyers.map((foyer) => ({
       nomFoyer: foyer.nomFoyer,
       capaciteFoyer: foyer.capaciteFoyer,
-      nomUniversite: foyer.universite.nomUniversite,
-      blocs: foyer.bloc.map(bloc => bloc.nomBloc).join(', '),
-      isSaturated: this.isFoyerSaturated(foyer) ? 'Yes' : 'No'
+      nomUniversite: foyer.universite ? foyer.universite.nomUniversite : '',
+      blocs: foyer.bloc.map((bloc) => bloc.nomBloc).join(', '),
+      isSaturated: this.isFoyerSaturated(foyer) ? 'Yes' : 'No',
     }));
 
-    // Use type assertion here
     (doc as any).autoTable({
       columns: columns,
-      body: data.map(item => columns.map(column => {
-        // @ts-ignore
-        return item[column.dataKey];
-      })),
-      startY: 20
+      body: data.map((item) =>
+        columns.map((column) => {
+          // @ts-ignore
+          return item[column.dataKey];
+        })
+      ),
+      startY: 20,
     });
 
     doc.save('foyer-list.pdf');
   }
+
 
   foyers: Foyer[] = [];
   search = '';
@@ -60,20 +70,26 @@ export class FoyerListComponent implements OnInit {
   ngOnInit(): void {
     this.foyerservice.getFoyer().subscribe((d) => {
       this.foyers = d;
-      console.log(this.foyers);
+      this.length = this.foyers.length;
+      this.updateDisplayedFoyers();
     });
   }
 
   deleteFoyerById(id: number): void {
-    const snackBarRef = this.snackBar.open('Are you sure you want to delete this foyer?', 'Delete', {
-      duration: 5000,
-    });
+    const snackBarRef = this.snackBar.open(
+      'Are you sure you want to delete this foyer?',
+      'Delete',
+      {
+        duration: 5000,
+      }
+    );
 
     snackBarRef.onAction().subscribe(() => {
       this.foyerservice.deleteFoyerAndDesaffecterUniversite(id).subscribe(
         () => {
           this.foyers = this.foyers.filter((foyer) => foyer.idFoyer !== id);
           this.showSnackBar('Foyer deleted successfully');
+          this.updateDisplayedFoyers();
         },
         (error) => {
           console.error('Failed to delete foyer:', error);
@@ -102,5 +118,15 @@ export class FoyerListComponent implements OnInit {
         this.foyers[i] = e;
       }
     }
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.updateDisplayedFoyers();
+  }
+
+  private updateDisplayedFoyers(): void {
+    const startIndex = this.pageIndex * this.pageSize;
+    this.displayedFoyers = this.foyers.slice(startIndex, startIndex + this.pageSize);
   }
 }
