@@ -1,0 +1,66 @@
+
+<mat-card class="cardWithShadow" style="background-color: #d8d8d8;">
+  <mat-card-content class="p-24">
+    <div fxLayout="column" fxLayoutAlign="center center"  >
+      Ajouter un nouveau Bloc
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label for="nomBloc">Nom Bloc</mat-label>
+        <input matInput type="text" id="nomBloc" name="nomBloc" formControlName="nomBloc" required>
+      </mat-form-field>
+    <form>
+        <form>
+      <mat-form-field class="example-full-width">
+        <mat-label for="capaciteBloc">Capacité Bloc</mat-label>
+        <input matInput type="number" id="capaciteBloc" name="capaciteBloc" formControlName="capaciteBloc" required>
+      </mat-form-field>
+        </form>
+     <form>
+      <mat-form-field class="example-full-width">
+        <mat-label for="foyer">Assigner à Foyer</mat-label> 
+        <mat-select id="foyer" name="foyer" formControlName="foyer" multiple>
+          <mat-option *ngFor="let f of foyers" [value]="f">{{ f.nomFoyer }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+     </form>
+ </form>
+
+ <button mat-raised-button color="primary" type="submit">Ajouter Bloc</button>
+
+
+
+<!-- Utilisation de Reactive Forms
+<form [formGroup]="blocForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="nomBloc">Nom Bloc</label>
+      <input type="text" id="nomBloc" name="nomBloc" formControlName="nomBloc" required>
+    </div>
+  
+    <div>
+      <label for="capaciteBloc">Capacité Bloc</label>
+      <input type="number" id="capaciteBloc" name="capaciteBloc" formControlName="capaciteBloc" required>
+    </div>
+
+  
+    <div>
+      <label for="foyer">Assigner à Foyer</label>
+      <select id="foyer" name="foyer" formControlName="foyer" multiple>
+        <option *ngFor="let f of foyers" [ngValue]="f">{{ f.nomFoyer }}</option>
+      </select>
+    </div>
+  
+ 
+
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@angular/flex-layout@12.0.0/bundles/flex-layout.umd.min.js">
+
+
+
+  -->

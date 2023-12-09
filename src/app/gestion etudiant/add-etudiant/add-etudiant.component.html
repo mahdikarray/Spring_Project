@@ -1,0 +1,57 @@
+<p>add-etudiant works!</p>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@angular/flex-layout@12.0.0/bundles/flex-layout.umd.min.js">
+
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+    <div fxLayout="column" fxLayoutAlign="center center">
+      Ajouter un nouveau Etudiant
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<form #form="ngForm">
+  <mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <div fxLayout="column" fxLayoutAlign="center center">
+
+        <mat-form-field appearance="outline" class="w-100">
+          <label>Nom:</label>
+          <input  matInput type="text" placeholder="Nom" name="nomEt"  [(ngModel)]="Etudiant.nomEt" #nomEtEtudiant="ngModel">         
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <label>Prénom</label>
+          <input matInput type="text" placeholder="Prénom"  name="prenomEt" [(ngModel)]="Etudiant.prenomEt" #prenomEttudiant="ngModel">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+            <label id="ecole">Ecole:</label>
+            <input type="text" placeholder="Ecole" [(ngModel)]="Etudiant.ecole"name="ecole" #ecoleEtudiant="ngModel" >
+        </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-80">
+            <label id="email">Email:</label>
+            <input matInput type="email" placeholder="Adresse Email" name="email" [(ngModel)]="Etudiant.email" #emailEtudiant="ngModel">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-80">
+            <label id="mdp">Mot De passe:</label>
+           <input  matInput type="mdp" placeholder="Mot de passe" [(ngModel)]="Etudiant.mdp" required name="mdp" #mdpEtudiant="ngModel">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-80">
+            <label id="date_naissance">Date de naissance:</label>
+            <input matInput type="text" placeholder="YYYY-MM-DD" name="date_naissance" [(ngModel)]="Etudiant.date_naissance" #date_naissanceEtudiant="ngModel">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-80">
+            <label id="cin">CIN:</label>
+            <input matInput type="text" placeholder="CIN" [(ngModel)]="Etudiant.cin" name="cin" #cinEtudiant="ngModel"> 
+          </mat-form-field>
+        
+        <button mat-flat-button color="accent" class="w-100" type="submit"(click)="saveEtudiant(form.value)" (click)="show(form.value)">Ajouter</button>
+
+    </div>
+</mat-card-content>
+</mat-card>
+</form>
