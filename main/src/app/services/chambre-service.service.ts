@@ -29,6 +29,9 @@ export class  ChambreService {
   deleteChambreById(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/deleteChamberById/${id}`);
   }
+  searchChambresByBloc(idBloc: any): Observable<Chambre[]> {
+    return this.http.get<Chambre[]>(`${this.baseUrl}/chambres/searchByBloc?idBloc=${idBloc}`);
+  }
 
  /* updateChambre(chambre: Chambre): Observable<Chambre> {
     const url = `${this.baseUrl}/updateChambre`;

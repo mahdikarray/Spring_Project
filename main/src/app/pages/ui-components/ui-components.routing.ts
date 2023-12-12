@@ -52,6 +52,13 @@ export const UiComponentsRoutes: Routes = [
           ),
       },
       {
+        path: 'bloc',
+        loadChildren: () =>
+          import('./blocmodule/blocmodule.module').then(
+            (m) => m.BlocmoduleModule
+          ),
+      },
+      {
         path: 'reservation',
         component: ReservationListComponent,
       },

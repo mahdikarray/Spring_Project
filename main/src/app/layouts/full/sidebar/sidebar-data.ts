@@ -60,7 +60,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Afficher Bloc',
     iconName: 'aperture',
-    route: '/main/admin/ui-components/Bloc',
+    route: '/main/admin/ui-components/bloc',
   },
 ];
 
