@@ -1,0 +1,69 @@
+<div class="container px-5 py-3 border border-1 rounded bg-white my-3"
+style="border-color: rgb(187, 187, 187); box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); cursor:pointer;">
+<div class="row">
+    <h3 class="col-auto">
+        {{reservation.title}}
+    </h3>
+    <button class="col-auto ms-auto" mat-icon-button [matMenuTriggerFor]="menu1"
+        aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu1="matMenu">
+
+        <button mat-menu-item>
+            <i class="far fa-bookmark me-4"></i>
+            <span>Save favourite</span>
+        </button>
+        <button mat-menu-item>
+            <i class="fas fa-ban me-4"></i>
+            <span>Block reservation</span>
+        </button>
+
+        <button mat-menu-item color="warn">
+            <i class="fa fa-flag me-4" aria-hidden="true"></i>
+            <span>Report</span>
+        </button>
+
+    </mat-menu>
+</div>
+<div class="row">
+    <span>
+        {{reservation.company}}
+    </span>
+</div>
+<div class="row">
+    <span>
+        <b>
+            Remote
+        </b>
+    </span>
+</div>
+<div class="row my-3">
+    <div>
+        <button class="col-auto badges2 me-1" mat-flat-button disabled>
+            <b>
+                {{reservation.salary}} a year
+            </b>
+        </button>
+        <button class="col-auto badges2 me-1" mat-flat-button disabled>
+            Remote
+        </button>
+        <button class="col-auto badges2 me-1" mat-flat-button disabled>
+            <b>
+                Part time
+            </b>
+        </button>
+    </div>
+</div>
+<ul>
+    <li>
+        Successful candidates will be supplied with equipment for equipment for remote working.
+    </li>
+    <li>
+        Successful candidates will be supplied with equipment for equipment for remote working.
+    </li>
+</ul>
+<span class="post-date">
+    Posted 3 days ago
+</span>
+</div>

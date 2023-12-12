@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-6 mb-4" *ngFor="let universite of ListUniv">
+            <div class="card text-center">
+                <!-- Display universite card details -->
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <!-- Universite Card -->
+                    <div *ngIf="selectedUniversityId !== universite.idUniversite" class="mb-2">
+                        <app-universite-card [UniversiteInput]="universite"></app-universite-card>
+                    </div>
+
+                    <!-- Foyer Card -->
+                    <div *ngIf="selectedUniversityId === universite.idUniversite">
+                        <app-foyer-card [universiteId]="universite.idUniversite"></app-foyer-card>
+                        <button class="btn btn-primary mt-auto" (click)="navigateToDetails(universite.foyer.bloc)">
+                            Voir details
+                        </button>
+                    </div>
+
+                    <!-- Button to Toggle -->
+                    <button class="btn btn-primary mt-1" (click)="toggleFoyerCard(universite.idUniversite)">
+                        {{ selectedUniversityId === universite.idUniversite ? 'Cacher Foyer' : 'Afficher Foyer' }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

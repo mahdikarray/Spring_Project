@@ -1,0 +1,14 @@
+<div class="container mx-5 my-3">
+
+
+    <h4 mat-dialog-title>Confirmation</h4>
+    <div mat-dialog-content>
+        Êtes-vous sûr de vouloir confirmer la réservation?
+    </div>
+    <div class="my-3" mat-dialog-actions>
+        <button mat-raised-button color="primary" mat-dialog-close cdkFocusInitial
+            (click)="ajouterReservation(chambre.numeroChambre)">confirmer</button>
+        <button mat-button (click)="dialogRef.close()">anuller</button>
+    </div>
+    
+</div>
