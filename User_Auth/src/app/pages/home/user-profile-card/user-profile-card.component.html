@@ -1,0 +1,59 @@
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Full Name</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{etudiant.nomEt}} {{etudiant.prenomEt}}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{etudiant.user.email}}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Date naissance</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{"12/12/1990" | date}}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Mobile</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{etudiant.numeroTelephone}}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Adresse</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{etudiant.adresse}}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-auto ms-auto my-auto">
+                <b>
+                    modifier profile
+                </b>
+            </div>
+            <button routerLink="/main/home/profile-form" class="me-2" mat-fab color="primary"
+                aria-label="Example icon button with a delete icon">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </div>
+    </div>

@@ -1,0 +1,117 @@
+
+
+<div class="container mb-4">
+  <div class="row d-flex justify-content-center">
+    <h3 class="col-auto">search </h3>
+  </div>
+  <div class="row">
+    <mat-form-field class="col-12 col-lg-10 mx-1" appearance="fill">
+      <mat-label>nom universite</mat-label>
+      <input matInput [formControl]="universiteSearchTerms" />
+      <mat-icon matPrefix>business</mat-icon>
+    </mat-form-field>
+
+
+
+    <button (click)="performSearch()" class="col-12 col-lg-1 search-button mx-lg-1" mat-raised-button color="primary">
+      <mat-icon matPrefix>search</mat-icon>
+      Search
+    </button>
+  </div>
+
+
+
+  <!-------------------------------- tri --------------------->
+  <button class="option-button" mat-button [matMenuTriggerFor]="adresse">
+    adresse universite<mat-icon>expand_more</mat-icon>
+  </button>
+
+  <mat-menu #adresse="matMenu">
+    <button (click)="sortByAdresse(true)"  mat-menu-item>croissant</button>
+    <button (click)="sortByAdresse(false)" mat-menu-item>decroissant</button>
+  </mat-menu>
+
+
+
+  <!--
+
+  <mat-menu #capacite="matMenu">
+    <button (click)="setCapacite([0,100]);performSearch()" mat-menu-item>capacite faible: 0-100</button>
+    <button (click)="setCapacite([100,200]);performSearch()" mat-menu-item>capacite moyenne: 100-200</button>
+    <button (click)="setCapacite([200,1000]);performSearch()" mat-menu-item>capacite eleveé: 200+</button>
+  </mat-menu> -->
+
+
+  <div class="col-lg-8">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <mat-card-title>Top Projects</mat-card-title>
+        <div class="table-responsive m-t-16">
+          <table mat-table [dataSource]="dataSource" class="w-100">
+
+
+            <!-- nom universite Column -->
+            <ng-container matColumnDef="nom universite">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                class="f-w-600 mat-subtitle-1 f-s-14"
+              >
+                nom du l université
+              </th>
+              <td mat-cell *matCellDef="let element" class="mat-body-1">
+                {{ element.nomUniversite }}
+              </td>
+            </ng-container>
+
+            <!-- capacite Column -->
+            <ng-container matColumnDef="adresse">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                class="f-w-600 mat-subtitle-1 f-s-14"
+              >
+                adresse  université
+              </th>
+              <td mat-cell *matCellDef="let element" class="mat-body-1">
+                {{ element.adresse }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+                Actions
+              </th>
+              <td mat-cell *matCellDef="let element" class="mat-body-1">
+                <!-- Add a button to trigger the delete function -->
+
+                <button class="mx-2" (click)="navigateToUpdatePage(element.idUniversite)"  mat-fab color="primary">
+                  <mat-icon>update</mat-icon>
+                </button>
+
+
+                <button (click)="onDeleteButtonClick(element.idUniversite)" mat-fab color="warn">
+                  <mat-icon>delete</mat-icon>
+                </button>
+
+                <button class="mx-2" (click)="openDialog(element)" mat-fab color="primary">
+                  <mat-icon>add</mat-icon>
+                </button>
+
+              </td>
+            </ng-container>
+
+
+
+            <!-- capacite indicator Column -->
+
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

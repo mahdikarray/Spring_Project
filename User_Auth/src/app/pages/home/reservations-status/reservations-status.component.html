@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+
+    <div class="row d-flex justfiy-content-center" *ngIf="dataSource.length == 0; else showStatus">
+        <h1 class="col-auto mt-4">no reservations found!</h1>
+    </div>
+
+    <ng-template #showStatus>
+        <div class="col-12 col-md-6 my-5">
+
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <!-- Name Column -->
+                <ng-container matColumnDef="numeroChambre">
+                    <th mat-header-cell *matHeaderCellDef> numero chambre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.chambre.numeroChambre}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="typeChambre">
+                    <th mat-header-cell *matHeaderCellDef> type chambre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.chambre.typeChambre}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> status </th>
+                    <td mat-cell *matCellDef="let element">
+
+                        <span *ngIf="element.statuReservation=='valide'"
+                            class="bg-light-success text-success rounded f-w-600 p-5 p-y-4 f-s-12">
+                            validé
+                        </span>
+
+                        <span *ngIf="element.statuReservation=='refuse'"
+                            class="bg-light-warning text-danger rounded f-w-600 p-5 p-y-4 f-s-12">
+                            refusé
+                        </span>
+                        <span *ngIf="element.statuReservation=='en-cours'"
+                            class="bg-light-primary text-info rounded f-w-600 p-5 p-y-4 f-s-12">
+                            en cours
+                        </span>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+        </div>
+    </ng-template>
+
+</div>

@@ -1,0 +1,30 @@
+<div>
+    <div class="productbox">
+      <div class="fadeshop">
+        <div class="captionshop text-center" style="display: none;">
+          <h3>Item Name</h3>
+          <p>
+            This is a short excerpt to generally describe what the item is about.
+          </p>
+          <p>
+            <a href="#" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i> Purchase</a>
+            <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
+          </p>
+        </div>
+        <span class="maxproduct"><img src="/assets/images/room.png" alt=""></span>
+      </div>
+      <div class="product-details">
+
+          <h6>Type Chmabre: {{chambreData.typeChambre}}</h6>
+          <h6>Numero Chambre: {{chambreData.numeroChambre}}</h6>
+
+        <span class="price">
+          <button class="col-12 bg-dark" mat-raised-button color="primary" (click)="emitChambreData(chambreData.numeroChambre)"> 
+             <b>
+                 RESERVER CHAMBRE
+             </b>
+           </button>
+        </span>
+      </div>
+    </div>
+  </div>

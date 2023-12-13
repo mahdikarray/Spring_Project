@@ -1,0 +1,264 @@
+<div class="container mb-4">
+
+    <div class="row">
+        <mat-form-field class="col-12 col-lg-5 mx-1" appearance="fill">
+            <mat-label>numero chambre </mat-label>
+            <input matInput [formControl]="chambreSearchTerms"/>
+            <mat-icon matPrefix>business</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-lg-5 mx-1" appearance="fill">
+            <mat-label>nom etudiant, prenom etudiant, or cin</mat-label>
+            <input matInput [formControl]="etudiantSearchTerms"/>
+            <mat-icon matPrefix>person</mat-icon>
+        </mat-form-field>
+
+        <button (click)="performSearch()" class="col-12 col-lg-1 search-button mx-lg-1" mat-raised-button color="primary">
+            <mat-icon matPrefix>search</mat-icon>
+            Search
+        </button>
+    </div>
+
+    <!-- <button class="option-button" mat-button [matMenuTriggerFor]="datePosted">
+        Date posted <mat-icon>expand_more</mat-icon>
+    </button>
+
+    <mat-menu #datePosted="matMenu">
+        (click)="applyDateFilter('today')" 
+        <button mat-menu-item>Today</button>
+        <button mat-menu-item>This Week</button>
+        <button mat-menu-item>This Month</button>
+    </mat-menu> -->
+
+
+    <button class="option-button" mat-button [matMenuTriggerFor]="typeChambre">
+        type chambre <mat-icon>expand_more</mat-icon>
+    </button>
+
+    <mat-menu #typeChambre="matMenu">
+        <button mat-menu-item (click)="setTypeChambre('SIMPLE');performSearch()">simple</button>
+        <button mat-menu-item (click)="setTypeChambre('DOUBLE');performSearch()">double</button>
+        <button mat-menu-item (click)="setTypeChambre('TRIPLE');performSearch()">triple</button>
+    </mat-menu>
+
+    <button class="option-button" mat-button [matMenuTriggerFor]="etatReservation">
+        etat reservation <mat-icon>expand_more</mat-icon>
+    </button>
+
+    <mat-menu #etatReservation="matMenu">
+        <button mat-menu-item (click)="setStatus('valide');performSearch()">validé</button>
+        <button mat-menu-item (click)="setStatus('en-cours');performSearch()">en attente</button>
+        <button mat-menu-item (click)="setStatus('refuse');performSearch()">refusé</button>
+    </mat-menu>
+
+
+
+
+</div>
+<mat-divider></mat-divider>
+
+<div class="container">
+    <div class="row">
+
+        <ng-container *ngIf="reservations.length != 0; else elseBlock">
+
+            <div class="col-12 col-lg-6 container-fluid">
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="container px-4 py-2">
+                            <div class="row">
+                                <span class="my-2" style="color: rgb(146, 146, 146);">
+                                    chambres disponibles
+                                </span>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto">
+                                    Sort by: <b>Relevance</b> - date
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div (click)="offerClick(i);" *ngFor="let reservation of paginatedReservations;let i = index"
+                    [class.selected]="selectedDiv === i + currentPage * pageSize  && !isMobile" (click)="onSelectDiv(i)"
+                    class="container px-5 py-3 border border-1 rounded bg-white my-3"
+                    style="border-color: rgb(187, 187, 187); box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                    <div class="row">
+                        <h3 class="col-auto">
+                            Chambre {{reservation.chambre.typeChambre}}
+                        </h3>
+
+                    </div>
+
+                    <div class="row">
+                        <span>
+                            <b>
+                                Esprit
+                            </b>
+                        </span>
+                    </div>
+                    <div class="row my-3">
+                        <div>
+                            <button class="col-auto badges2 me-1" mat-flat-button disabled>
+                                <b>
+                                    {{reservation.anneUniversitaire | date}}
+                                </b>
+                            </button>
+
+                        </div>
+                    </div>
+                    <ul>
+                        <li>
+                            Ne laissez pas entrer d'étrangers.
+                        </li>
+                        <li>
+                            Ne déplacez pas les meubles sans autorisation préalable.
+                        </li>
+                        <li>
+                            Signalez tout dommage ou problème dans la chambre immédiatement.
+                        </li>
+                    </ul>
+                    <span class="post-date">
+                        Posted 3 days ago
+                    </span>
+                </div>
+
+
+
+
+                <mat-paginator [length]="reservations.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="onPageChange($event)">
+                </mat-paginator>
+
+
+
+
+            </div>
+
+
+
+
+            <div class="col-6 my-3 costum-display">
+                <mat-card class="example-card job-description">
+
+                    <mat-card-header>
+                        <mat-card-title>Type: {{currentReservation.chambre.typeChambre}}</mat-card-title>
+                    </mat-card-header>
+
+                    <mat-card-content>
+                        <div class="row">
+                            <a href="#" class="col-auto">
+                                <!-- {{currentReservation.company}} -->
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+
+                            <!-- <div class="col-auto ms-auto stars-icons">
+                                <span *ngFor="let i of [1,2,3,4,5]" class="star-icon">
+                                    <mat-icon class="stars">star</mat-icon>
+                                    <mat-icon class="stars">{{ currentOffer.rating >= i ? 'star' :
+                                    'star_border'}}</mat-icon> 
+                                </span>
+                            </div> -->
+                            <!-- 
+                            <a href="#" class="col-auto ms-auto ">
+                                75 Reviews
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a> -->
+
+                        </div>
+                        <div class="row my-3">
+                            <span class="col-12" style="color: rgb(115, 115, 115);">
+                                Date de publication :
+                            </span>
+                            <span class="my-2 col-12">
+                                {{currentReservation.anneUniversitaire | date}}
+                            </span>
+                        </div>
+                        <div class="row">
+
+                            <button [disabled]="currentReservation.statuReservation!='en-cours'" (click)="validateReservation(currentReservation.idReservation)" class="col-md-auto  mx-lg-2" mat-raised-button
+                                color="primary">
+                                Valider reservation
+                                <i class="material-icons">check</i>
+                            </button>
+
+                            <button [disabled]="currentReservation.statuReservation!='en-cours'" (click)="refuseReservationByid(currentReservation.idReservation)" class="col-md-auto  mx-lg-2" mat-raised-button
+                                color="primary">
+                                Annuler reservation
+                                <i class="material-icons">not_interested</i>
+                            </button>
+                            
+                            <!-- 
+                            <button
+                                (click)="ajouterReservation(currentReservation.chambre.numeroChambre,currentReservation.etudiant.cin)"
+                                class="col-md-auto  mx-lg-2" mat-raised-button color="primary">
+                                Ajouter reservation
+                            </button> -->
+
+
+
+                        </div>
+                        <div class="container my-4 scrollable-div">
+
+                            <mat-divider></mat-divider>
+                            <div class="row">
+                                <app-user-info [etudiant]="currentReservation.etudiant"></app-user-info>
+                            </div>
+
+                            <mat-divider></mat-divider>
+                            <div class="row">
+                                <app-chambre-info [chambre]="currentReservation.chambre"></app-chambre-info>
+                            </div>
+
+
+                            <mat-divider></mat-divider>
+                            <div class="row mt-3">
+                                <h4 class="mt-3"> <b>a propos revervation:</b></h4>
+                                <p>
+                                    En confirmant cette réservation, vous acceptez les conditions générales qui
+                                    régissent l'utilisation de nos services
+                                </p>
+                            </div>
+
+
+                        </div>
+
+                        <mat-divider></mat-divider>
+                    </mat-card-content>
+
+                    <!-- <mat-card-actions align="end">
+                        <button mat-button color="warn">
+                            <i class="fa fa-flag" aria-hidden="true"></i> REPORT
+                        </button>
+                        <button mat-button>
+                            <i class="fa fa-share-alt" aria-hidden="true"></i>SHARE
+                        </button>
+                    </mat-card-actions> -->
+
+                    <mat-card-footer>
+                        <mat-progress-bar mode="determinate" value="90"></mat-progress-bar>
+                    </mat-card-footer>
+                </mat-card>
+            </div>
+
+        </ng-container>
+
+        <ng-template #elseBlock>
+            <div class="row">
+                <h1 class="col-auto mx-auto">no reservations found!</h1>
+            </div>
+        </ng-template>
+
+    </div>
+</div>
+
+
+<!-- <ng-container *ngFor="let offer of paginatedOffers;let i = index">
+                <app-reservation-card (click)="offerClick(i);" (click)="onSelectDiv(i)" 
+                (messageSent)="receiveMessage($event)" 
+                [reservation]="offer"
+                [class.selected]="selectedDiv === i + currentPage * pageSize  && !isMobile" (click)="onSelectDiv(i)"
+                style="border-color: rgb(187, 187, 187); box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); cursor:pointer;"
+                ></app-reservation-card>
+            </ng-container> -->

@@ -1,0 +1,21 @@
+<h3 class="mt-3">Details Etudiant</h3>
+<div class="col-auto  d-flex align-items-center">
+    <mat-icon>account_circle</mat-icon>
+    <b class="my-auto">
+        &nbsp;&nbsp;{{etudiant.nomEt+" "+etudiant.prenomEt | titlecase}}
+    </b>
+</div>
+<div class="row my-2">
+    <div class="ms-4 col-auto  d-flex align-items-center">
+        <button class="badges mx-1" mat-flat-button disabled>
+            Cin : {{etudiant.cin}}
+        </button>
+        <button class="badges mx-1" mat-flat-button disabled>
+            Ecole: {{etudiant.ecole}}
+        </button>
+        <br>
+        <button class="badges mx-1" mat-flat-button disabled>
+            Email: {{etudiant.user.email}}
+        </button>
+    </div>
+</div>

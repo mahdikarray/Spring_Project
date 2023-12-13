@@ -1,0 +1,222 @@
+<mat-card class="container col-12 col-lg-7">
+
+    <mat-card-header>
+        <mat-card-title>
+            <h1>
+                Profile progress
+            </h1>
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-progress-bar class="my-3" mode="determinate" value="{{progressForm}}" strokeWidth="30"></mat-progress-bar>
+
+
+
+
+    <mat-card-content class="my-3">
+
+        <mat-stepper [linear]="isLinear" #stepper>
+
+
+
+            <mat-step label="Additional Questions">
+                <form [formGroup]="userForm">
+                    <div class="row mt-4">
+                        <h1>What is your name?</h1>
+                        <!-- Remove the ng-template matStepLabel -->
+
+                        <h4>Email*</h4>
+                        <mat-form-field class="col-12" appearance="fill">
+                            <input formControlName="email" matInput placeholder="Enter Email">
+                        </mat-form-field>
+
+                        <h4>First name*</h4>
+                        <mat-form-field class="col-12" appearance="fill">
+                            <input formControlName="prenomEt" matInput placeholder="Enter first name">
+                        </mat-form-field>
+
+                        <h4>Last name*</h4>
+                        <mat-form-field class="col-12">
+                            <input formControlName="nomEt" matInput placeholder="Enter last name">
+                        </mat-form-field>
+
+                    </div>
+                    <div class="row">
+                        <button
+                            [disabled]="userForm.get('email')!.errors || userForm.get('prenomEt')!.errors || userForm.get('nomEt')!.errors"
+                            class="col ms-auto" mat-button matStepperNext (click)="updateProgress(25)">next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step label="Additional Questions">
+                <form [formGroup]="userForm">
+                    <div class="row mt-4">
+                        <h1>Would you like to add a phone number to your resume?</h1>
+                        <!-- Remove the ng-template matStepLabel -->
+                        <h4>Phone number</h4>
+                        <span class="text-muted mb-3">Only provided to employers you apply or respond to</span>
+
+
+                        <mat-form-field class="col-12">
+                            <mat-icon matPrefix>cin</mat-icon>
+                            <input formControlName="cin" type="number" matInput
+                                placeholder="Enter your cin">
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12">
+                            <mat-icon matPrefix>phone</mat-icon>
+                            <input formControlName="numeroTelephone" type="number" matInput
+                                placeholder="Enter phone number">
+                        </mat-form-field>
+
+
+
+                        <span class="text-muted col-11 mx-auto">By submitting the form with this box checked,
+                            you confirm
+                            that you are
+                            the primary user and subscriber to the telephone number provided, and you agree
+                            to
+                            receive calls (including using artificial or pre-recorded voice), texts, and
+                            WhatsApp messages from Indeed and employers who use Indeed at the telephone
+                            number
+                            provided above.
+                        </span>
+                    </div>
+                    <div class="row">
+
+                        <button class="col-1 ms-auto" mat-button matStepperPrevious
+                            (click)="updateProgress(-25)">Back</button>
+
+                        <button [disabled]="userForm.get('numeroTelephone')!.errors || userForm.get('cin')!.errors" class="col-1" mat-button
+                            matStepperNext (click)="updateProgress(25)">next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step label="Additional Questions">
+                <form [formGroup]="userForm">
+                    <div class="row mt-4">
+                        <h1>Where are you located?</h1>
+
+                        <span class="text-muted mb-3">
+                            This helps match you with nearby jobs
+                        </span>
+                        <!-- Remove the ng-template matStepLabel -->
+                        <b style="font-size: large;">Country</b>
+                        <span>Tunisia</span>
+
+                        <h4 class="mt-3">Street address</h4>
+                        <mat-form-field class="col-12">
+                            <input formControlName="adresse" matInput placeholder="Enter street address">
+                        </mat-form-field>
+
+                        <h4>City, State*</h4>
+                        <mat-form-field class="col-12">
+                            <input formControlName="ville" matInput placeholder="Enter city, state address">
+                        </mat-form-field>
+
+                        <h4>Postal code</h4>
+                        <mat-form-field class="col-12">
+                            <input formControlName="codePostal" matInput placeholder="Enter postal code">
+                        </mat-form-field>
+
+
+
+
+                    </div>
+                    <div class="row">
+
+                        <button class="col-1 ms-auto" mat-button matStepperPrevious
+                            (click)="updateProgress(-25)">Back</button>
+
+                        <button
+                            [disabled]="userForm.get('adresse')!.errors || userForm.get('ville')!.errors || userForm.get('codePostal')!.errors"
+                            class="col-1" mat-button matStepperNext (click)="updateProgress(25)">next</button>
+                    </div>
+                </form>
+            </mat-step>
+
+
+
+
+            <!-- </ng-container> -->
+
+
+            <mat-step label="Additional Questions">
+                <form [formGroup]="userForm">
+                    <div class="row mt-4">
+                        <h1>Add education</h1>
+
+                        <h4>School</h4>
+                        <mat-form-field class="col-12">
+                            <mat-label>Ecole</mat-label>
+
+                            <mat-select>
+                                <mat-option value="Esprit Engineering"
+                                    (click)="enableAnotherSchool(false);enableEspritSchools(true);">
+                                    Esprit
+                                </mat-option>
+
+                                <mat-option #autre value="another" (click)="enableAnotherSchool(true)">
+                                    Another
+                                </mat-option>
+
+                            </mat-select>
+
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="anotherSchoolEnabled" class="col-12">
+                            <input formControlName="ecole" matInput placeholder="School name">
+                        </mat-form-field>
+
+
+                        <mat-form-field *ngIf="espritSchoolsEnabled" class="col-12">
+                            <mat-label>choose major</mat-label>
+
+                            <input formControlName="specialite" type="text" placeholder="choose your school"
+                                aria-label="Number" matInput [matAutocomplete]="auto">
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                    {{option}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+
+
+                    </div>
+
+                    <div class="row">
+
+                        <button class="col-1 ms-auto" mat-button matStepperPrevious
+                            (click)="updateProgress(-25)">Back</button>
+
+                        <button class="col-1" mat-button color="primary" matStepperNext
+                            (click)="updateProgress(25)">next</button>
+                    </div>
+
+                </form>
+            </mat-step>
+
+            <mat-step>
+
+                <p>You are now done.</p>
+                <button mat-button color="primary" (click)="openDialog()">
+                    Review your application
+                    <mat-icon>rate_review</mat-icon>
+                </button>
+                <div class="row">
+                    <button class="col-1 ms-auto" mat-button matStepperPrevious
+                        (click)="updateProgress(-25)">Back</button>
+                    <button (click)="updateProfile()" class="col-1" mat-button>Submit</button>
+                </div>
+
+            </mat-step>
+
+
+
+
+        </mat-stepper>
+    </mat-card-content>
+
+</mat-card>
